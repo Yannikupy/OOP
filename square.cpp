@@ -1,32 +1,26 @@
 #include "square.h"
 
-square::square()
- :  len_a(0.0),
-    len_b(0.0) {
-    std::cout << "Default square was created" << std::endl;
-}
-square::square(double a, double b)
- :  len_a(a),
-    len_b(b){
-    std::cout << "Square created" << std::endl;
-}
-square::square(std::istream &is) {
-    std::cout << "Enter lengths" << std::endl;
-    is >> len_a;
-    is >> len_b;
-    std::cout << "Square was created via istream" << std::endl;
-}
-
-void square::Print() {
-    std::cout << len_a << ',';
-    std::cout << len_b << std::endl;
-}
-
-double square::Square() {
-    double result = len_a * len_b;
-    return result;
+square::square() {
+    std::cout << "Enter coordinates" << std::endl;
+    std::cin >> a;
+    std::cin >> b;
+    std::cin >> c;
+    std::cin >> d;
+    std::cout << "square was created via istream" << std::endl;
 }
 
 square::~square() {
-    std::cout << "Square deleted" << std::endl;
+    std::cout << "square deleted" << std::endl;
+}
+
+void square::Print() {
+    std::cout << "Square: " << a << " " << b << " "  << c << " " << d << std::endl;
+}
+void square::Area() {
+    double len_a = a.dist(b);
+    double len_b = b.dist(c);
+    std::cout << "Area of square: " << len_a * len_b << std::endl;
+}
+size_t square::VertexesNumber() {
+    return 4;
 }

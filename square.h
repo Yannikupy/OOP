@@ -5,21 +5,17 @@
 
 #include "figure.h"
 #include <iostream>
+#include "point.h"
 
 class square : public figure  {
 public:
     square();
-
-    square(std::istream &is);
-
-    square(double a, double b);
-
     virtual ~square();
     void Print();
-    double Square();
-
+    void Area();
+    size_t VertexesNumber();
 private:
-    double len_a{}, len_b{};
+    Point a, b, c, d;
 };
 
 

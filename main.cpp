@@ -1,20 +1,20 @@
 #include <iostream>
 #include "square.h"
+#include "rectangle.h"
+#include "trapezoid.h"
 
 int main() {
     square a;
     a.Print();
-    square b(2, 5);
+    a.Area();
+    std::cout << "Количество вершин в квадрате " << a.VertexesNumber() << std::endl;
+    rectangle b;
     b.Print();
-    std::cout << b.Square() << std::endl;
-    square c(std::cin);
+    b.Area();
+    std::cout << "Количество вершин в прямоугольнике " << b.VertexesNumber() << std::endl;
+    trapezoid c;
     c.Print();
-    std::cout << c.Square() << std::endl;
-    square d = b;
-    d.Print();
-    figure* f = new square(c);
-    f->Print();
-    std::cout << "square:" << f->Square() << std::endl;
-    delete f;
+    c.Area();
+    std::cout << "Количество вершин в трапеции " << c.VertexesNumber() << std::endl;
     return 0;
 }
