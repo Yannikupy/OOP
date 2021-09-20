@@ -7,7 +7,7 @@
 #include <iostream>
 #include "point.h"
 
-class square : public figure  {
+class square : public Figure  {
 public:
     square();
     virtual ~square();

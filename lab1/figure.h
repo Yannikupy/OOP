@@ -3,9 +3,9 @@
 
 #include "point.h"
 
-class figure{
+class Figure{
 public:
-    virtual ~figure() {};
+    virtual ~Figure() {};
     virtual void Print() = 0;
     virtual void Area() = 0;
     virtual size_t VertexesNumber() = 0;

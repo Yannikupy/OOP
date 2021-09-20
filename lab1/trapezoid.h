@@ -5,7 +5,7 @@
 
 #include "figure.h"
 
-class trapezoid: public figure{
+class trapezoid: public Figure{
 public:
     trapezoid();
     virtual ~trapezoid();

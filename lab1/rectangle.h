@@ -4,7 +4,7 @@
 
 #include "figure.h"
 
-class rectangle: public figure {
+class rectangle: public Figure {
 public:
     rectangle();
     virtual ~rectangle();
