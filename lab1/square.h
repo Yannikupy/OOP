@@ -7,10 +7,10 @@
 #include <iostream>
 #include "point.h"
 
-class square : public Figure  {
+class Square : public Figure  {
 public:
-    square();
-    virtual ~square();
+    Square();
+    virtual ~Square();
     void Print();
     void Area();
     size_t VertexesNumber();

@@ -2,25 +2,25 @@
 
 #include "rectangle.h"
 
-rectangle::rectangle() {
+Rectangle::Rectangle() {
     std::cout << "Enter coordinates" << std::endl;
     std::cin >> a;
     std::cin >> b;
     std::cin >> c;
     std::cin >> d;
-    std::cout << "rectangle was created via istream" << std::endl;
+    std::cout << "Rectangle was created via istream" << std::endl;
 }
-rectangle::~rectangle(){
-    std::cout << "rectangle deleted" << std::endl;
+Rectangle::~Rectangle(){
+    std::cout << "Rectangle deleted" << std::endl;
 }
-void rectangle::Print() {
+void Rectangle::Print() {
     std::cout << "Rectangle: " << a << " " << b << " "  << c << " " << d << std::endl;
 }
-void rectangle::Area() {
+void Rectangle::Area() {
     double len_a = a.dist(b);
     double len_b = b.dist(c);
-    std::cout << "Area of rectangle: " << len_a * len_b << std::endl;
+    std::cout << "Area of Rectangle: " << len_a * len_b << std::endl;
 }
-size_t rectangle::VertexesNumber() {
+size_t Rectangle::VertexesNumber() {
     return 4;
 }

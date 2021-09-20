@@ -4,10 +4,10 @@
 
 #include "figure.h"
 
-class rectangle: public Figure {
+class Rectangle: public Figure {
 public:
-    rectangle();
-    virtual ~rectangle();
+    Rectangle();
+    virtual ~Rectangle();
     void Print();
     void Area();
     size_t VertexesNumber();

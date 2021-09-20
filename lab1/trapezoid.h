@@ -5,10 +5,10 @@
 
 #include "figure.h"
 
-class trapezoid: public Figure{
+class Trapezoid: public Figure{
 public:
-    trapezoid();
-    virtual ~trapezoid();
+    Trapezoid();
+    virtual ~Trapezoid();
     void Print();
     void Area();
     size_t VertexesNumber();
