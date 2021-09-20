@@ -5,6 +5,10 @@
     "Rectangle",
     "Trapezoid"
   ],
+  "containers": [
+    "TVector",
+    "TLinkedList"
+  ],
   "finished_labs": {
     "lab1": "lab1"
   }
