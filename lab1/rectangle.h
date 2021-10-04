@@ -7,9 +7,10 @@
 class Rectangle: public Figure {
 public:
     Rectangle();
+    Rectangle(std::istream &is);
     virtual ~Rectangle();
-    void Print();
-    void Area();
+    void Print(std::ostream& os);
+    double Area();
     size_t VertexesNumber();
 private:
     Point a, b, c, d;

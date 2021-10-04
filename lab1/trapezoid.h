@@ -8,9 +8,10 @@
 class Trapezoid: public Figure{
 public:
     Trapezoid();
+    Trapezoid(std::istream &is);
     virtual ~Trapezoid();
-    void Print();
-    void Area();
+    void Print(std::ostream& os);
+    double Area();
     size_t VertexesNumber();
 
 private:

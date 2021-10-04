@@ -5,16 +5,19 @@
 
 int main() {
     Square a;
-    a.Print();
-    a.Area();
-    std::cout << "Количество вершин в квадрате " << a.VertexesNumber() << std::endl;
+    Square sqr(std::cin);
+    sqr.Print(std::cout);
+    std::cout << "Площадь квадрата: " << sqr.Area() << std::endl;
+    std::cout << "Количество вершин в квадрате " << sqr.VertexesNumber() << std::endl;
     Rectangle b;
-    b.Print();
-    b.Area();
-    std::cout << "Количество вершин в прямоугольнике " << b.VertexesNumber() << std::endl;
+    Rectangle rec(std::cin);
+    rec.Print(std::cout);
+    std::cout << "Площадь прямоугольника: " << rec.Area() << std::endl;
+    std::cout << "Количество вершин в прямоугольнике " << rec.VertexesNumber() << std::endl;
     Trapezoid c;
-    c.Print();
-    c.Area();
-    std::cout << "Количество вершин в трапеции " << c.VertexesNumber() << std::endl;
+    Trapezoid tr(std::cin);
+    tr.Print(std::cout);
+    std::cout << "Площадь трапеции: " << tr.Area() << std::endl;
+    std::cout << "Количество вершин в трапеции " << tr.VertexesNumber() << std::endl;
     return 0;
 }

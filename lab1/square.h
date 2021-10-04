@@ -10,9 +10,10 @@
 class Square : public Figure  {
 public:
     Square();
+    Square(std::istream &is);
     virtual ~Square();
-    void Print();
-    void Area();
+    void Print(std::ostream& os);
+    double Area();
     size_t VertexesNumber();
 private:
     Point a, b, c, d;

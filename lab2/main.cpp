@@ -30,8 +30,6 @@ int main() {
     c.Print();
     c.Area();
     std::cout << "Количество вершин в трапеции " << c.VertexesNumber() << std::endl;
-    vector l;
-    l.Print();
     Trapezoid k = c;
     k.Print();
     if(k == c) std::cout << "Equal trapezoids" << std::endl;
