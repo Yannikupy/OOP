@@ -2,7 +2,7 @@
 #include "square.h"
 #include "rectangle.h"
 #include "trapezoid.h"
-#include "vector.h"
+#include "TVector.h"
 
 int main() {
     Square a;
@@ -10,9 +10,10 @@ int main() {
     std::cout << a << std::endl;
     Square a1;
     std::cin >> a1;
-    vector v;
+    TVector v;
     v.push_back(a);
     v.push_back(a1);
+    v.resize(0);
     v.Print();
     v.erase(0);
     std::cin >> v;
