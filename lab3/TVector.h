@@ -8,7 +8,7 @@ public:
     TVector();
     ~TVector();
     void Print();
-    void push_back(const Square& value);
+    void push_back(std::shared_ptr<Square> &&value);
     void pop_back();
     void clear();
     int size();

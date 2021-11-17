@@ -4,10 +4,12 @@
 #include "figure.h"
 #include <iostream>
 #include "point.h"
+#include <memory>
 
 class Square : public Figure  {
 public:
     Square();
+    Square(const std::shared_ptr<Square>& square);
     virtual ~Square();
     void Print();
     void Area();

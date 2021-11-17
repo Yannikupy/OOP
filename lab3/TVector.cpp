@@ -1,6 +1,5 @@
 #include "TVector.h"
 #include "cstdlib"
-#include <algorithm>
 
 TVector::TVector(){
     std::shared_ptr<Square[]> _array(nullptr);
@@ -16,7 +15,7 @@ void TVector::Print() {
     }
 }
 
-void TVector::push_back(const Square& value) {
+void TVector::push_back(std::shared_ptr<Square> &&value) {
     Square* _array1 = new Square[_size + 1];
     for(int i = 0; i < _size; i++){
         _array1[i] = _array[i];
@@ -121,7 +120,7 @@ std::ostream & operator<<(std::ostream &os, TVector &s) {
 std::istream& operator>>(std::istream& is, TVector& s) {
     Square a;
     is >> a;
-    s.push_back(a);
+    s.push_back(std::shared_ptr<Square> (new Square(a)));
     return is;
 }
 

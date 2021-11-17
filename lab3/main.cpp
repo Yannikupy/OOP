@@ -5,12 +5,12 @@
 #include "TVector.h"
 
 int main() {
-    Square a, b, c;
-    std::cin >> a >> b >> c;
     TVector v;
-    v.push_back(a);
-    v.push_back(b);
-    v.push_back(c);
+    Square a, b;
+    std::cin >> a >> b;
+    v.push_back(std::shared_ptr<Square>(new Square));
+    v.push_back(std::shared_ptr<Square>(new Square(a)));
+    v.push_back(std::shared_ptr<Square>(new Square(b)));
     std::cout << "Before pop_back\n" << v << std::endl;
     v.pop_back();
     std::cout << "After pop_back\n" << v << std::endl;

@@ -8,7 +8,13 @@ std::istream& operator>>(std::istream& is, Square& s) {
     std::cout << "Square was created via istream" << std::endl;
     return is;
 }
-
+Square::Square(const std::shared_ptr<Square> &square)  {
+    this->a = square->a;
+    this->b = square->b;
+    this->c = square->c;
+    this->d = square->d;
+    std::cout << "Stack item: created" << std::endl;
+}
 Square::~Square() {
    // std::cout << "Square deleted" << std::endl;
 }
