@@ -66,9 +66,11 @@ void TVector::Clear() {
 }
 
 std::ostream& operator<<(std::ostream& os, const TVector& arr){
+    os << "[";
     for(int i = 0; i < arr.size; ++i){
-        os << arr.data[i].GetSquare();
+        os << arr.data[i].GetSquare().Area() << " ";
     }
+    os << "]";
     return os;
 }
 
