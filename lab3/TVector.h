@@ -4,23 +4,24 @@
 #include <iostream>
 #include "TVectorItem.h"
 #include "square.h"
+#include <memory>
 
 class TVector {
 public:
 
     TVector();
 
-    TVector(const TVector& other);
+    TVector(const std::shared_ptr<TVector> p);
 
     ~TVector();
 
-    void InsertLast(const Square& pentagon);
+    void InsertLast(const std::shared_ptr<Square>& square);
 
     void RemoveLast();
 
-    Square& Last();
+    std::shared_ptr<Square>& Last();
 
-    Square& operator[] (const size_t idx);
+    std::shared_ptr<Square>& operator[] (const size_t idx);
 
     bool Empty();
 
@@ -34,7 +35,7 @@ public:
 private:
     size_t size;
     size_t capacity;
-    TVectorItem *data;
+    std::shared_ptr<TVectorItem[]> data;
 };
 
 #endif //LAB1_TVECTOR_H

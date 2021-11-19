@@ -3,22 +3,22 @@
 
 #include <iostream>
 #include "square.h"
+#include <memory>
 
 class TVectorItem {
 public:
-    TVectorItem(const Square& square);
+    TVectorItem(const std::shared_ptr<Square>& other);
 
-    TVectorItem(const TVectorItem& other);
+    TVectorItem(const std::shared_ptr<TVectorItem>& other);
 
-    Square& GetSquare();
+    std::shared_ptr<Square>& GetSquare();
 
     TVectorItem(){}
-
     friend std::ostream &operator<<(std::ostream &os, TVectorItem &p);
 
 
 private:
-    Square p;
+    std::shared_ptr<Square> p;
 };
 
 #endif //LAB1_TVECTORITEM_H

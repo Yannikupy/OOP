@@ -1,25 +1,21 @@
 #include "TVector.h"
 #include <cassert>
+#include <memory>
 
 TVector::TVector():size(0), data(nullptr), capacity(0) {
 }
 
-TVector::TVector(const std::shared other){
-    size = other.size;
-    capacity = other.capacity;
-    data = new TVectorItem[capacity];
-    for(int i = 0; i < size; ++i)
-        data[i] = other.data[i];
+TVector::TVector(const std::shared_ptr<TVector> p){
+    TVector const& other = *p;
 }
 
 TVector::~TVector() {
-    if(capacity != 0)
-        delete[] data;
+
 }
 
-void TVector::InsertLast(const Square& pentagon){
+void TVector::InsertLast(const std::shared_ptr<Square>& square){
     if(capacity != 0 && capacity > size){
-        data[size++] = pentagon;
+        data[size++] = square;
     }
     else{
         if(capacity == 0)
@@ -29,9 +25,8 @@ void TVector::InsertLast(const Square& pentagon){
         for(int i = 0; i < size; ++i){
             data_new[i] = data[i];
         }
-        data_new[size++] = pentagon;
-        delete[] data;
-        data = data_new;
+        data_new[size++] = square;
+        data.reset(data_new);
     }
 }
 
@@ -40,7 +35,7 @@ void TVector::RemoveLast(){
         --size;
 }
 
-Square& TVector::Last(){
+std::shared_ptr<Square>& TVector::Last(){
     assert(size > 0);
     return data[size - 1].GetSquare();
 }
@@ -49,7 +44,7 @@ size_t TVector::Length() {
     return size;
 }
 
-Square& TVector::operator[] (const size_t idx){
+std::shared_ptr<Square>& TVector::operator[] (const size_t idx){
     assert(idx >= 0 && idx < size);
     return data[idx].GetSquare();
 }
@@ -59,16 +54,16 @@ bool TVector::Empty(){
 }
 
 void TVector::Clear() {
-    if(capacity != 0)
-        delete[] data;
     data = nullptr;
     capacity = size = 0;
 }
 
 std::ostream& operator<<(std::ostream& os, const TVector& arr){
+    os << "[";
     for(int i = 0; i < arr.size; ++i){
-        os << arr.data[i].GetSquare();
+        os << arr.data[i].GetSquare()->Area() << " ";
     }
+    os << "]";
     return os;
 }
 

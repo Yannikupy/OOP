@@ -1,19 +1,19 @@
 #include <iostream>
 #include "TVectorItem.h"
 
-TVectorItem::TVectorItem(const Square& square){
-    p = square;
+TVectorItem::TVectorItem(const std::shared_ptr<Square>& other){
+    p = other;
 }
 
-TVectorItem::TVectorItem(const TVectorItem& other){
-    p = other.p;
+TVectorItem::TVectorItem(const std::shared_ptr<TVectorItem>& other){
+    p = other->p;
 }
 
-Square& TVectorItem::GetSquare(){
-    return p;
+std::shared_ptr<Square>& TVectorItem::GetSquare(){
+    return p ;
 }
 
 std::ostream &operator<<(std::ostream &os, TVectorItem &p){
-    os << p;
+    os << *p.GetSquare();
     return os;
 }
