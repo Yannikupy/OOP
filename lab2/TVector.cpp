@@ -17,9 +17,9 @@ TVector::~TVector() {
         delete[] data;
 }
 
-void TVector::InsertLast(const Square& pentagon){
+void TVector::InsertLast(const Square& square){
     if(capacity != 0 && capacity > size){
-        data[size++] = pentagon;
+        data[size++] = square;
     }
     else{
         if(capacity == 0)
@@ -29,7 +29,7 @@ void TVector::InsertLast(const Square& pentagon){
         for(int i = 0; i < size; ++i){
             data_new[i] = data[i];
         }
-        data_new[size++] = pentagon;
+        data_new[size++] = square;
         delete[] data;
         data = data_new;
     }

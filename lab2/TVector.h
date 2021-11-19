@@ -14,7 +14,7 @@ public:
 
     ~TVector();
 
-    void InsertLast(const Square& pentagon);
+    void InsertLast(const Square& square);
 
     void RemoveLast();
 

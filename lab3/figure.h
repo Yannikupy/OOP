@@ -7,7 +7,7 @@ class Figure{
 public:
     virtual ~Figure() {};
     virtual void Print() = 0;
-    virtual void Area() = 0;
+    virtual double Area() = 0;
     virtual size_t VertexesNumber() = 0;
 };
 

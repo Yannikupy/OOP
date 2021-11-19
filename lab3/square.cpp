@@ -1,20 +1,13 @@
 #include "square.h"
 
 Square::Square() = default;
-
 std::istream& operator>>(std::istream& is, Square& s) {
     std::cout << "Enter coordinates of square" << std::endl;
     is >> s.a >> s.b >> s.c >> s.d ;
     std::cout << "Square was created via istream" << std::endl;
     return is;
 }
-Square::Square(const std::shared_ptr<Square> &square)  {
-    this->a = square->a;
-    this->b = square->b;
-    this->c = square->c;
-    this->d = square->d;
-    std::cout << "Stack item: created" << std::endl;
-}
+
 Square::~Square() {
    // std::cout << "Square deleted" << std::endl;
 }
@@ -22,10 +15,10 @@ Square::~Square() {
 void Square::Print() {
     std::cout << "Square: " << a << " " << b << " "  << c << " " << d << std::endl;
 }
-void Square::Area() {
+double Square::Area() {
     double len_a = a.dist(b);
     double len_b = b.dist(c);
-    std::cout << "Area of Square: " << len_a * len_b << std::endl;
+    return len_a * len_b;
 }
 size_t Square::VertexesNumber() {
     return 4;
@@ -39,3 +32,4 @@ bool operator==(Square lhs, Square rhs) {
     if(lhs.a == rhs.a && lhs.b == rhs.b && lhs.c == rhs.c && lhs.d == rhs.d) return true;
     else return false;
 }
+
