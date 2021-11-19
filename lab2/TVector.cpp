@@ -1,142 +1,75 @@
 #include "TVector.h"
-#include "cstdlib"
+#include <cassert>
 
-TVector::TVector()
-    : _array(nullptr)
-    , _size(0)
-{
-
-}
-TVector::TVector(TVector &other)
-{
-    _size = other.length();
-    _array = (Square*) malloc(sizeof other);
-    for(int i = 0; i < other.length(); ++i){
-        _array[i] = other[i];
-    }
-}
-TVector::~TVector()
-{
-    clear();
+TVector::TVector():size(0), data(nullptr), capacity(0) {
 }
 
-void TVector::Print() {
-    for(int i = 0; i < _size; i++){
-        std::cout << _array[i] << std::endl;
-    }
+TVector::TVector(const TVector& other){
+    size = other.size;
+    capacity = other.capacity;
+    data = new TVectorItem[capacity];
+    for(int i = 0; i < size; ++i)
+        data[i] = other.data[i];
 }
 
-void TVector::push_back(const Square& value) {
-    if(_size == 0){
-        _array = (Square*) malloc(sizeof value);
-        _array[_size] = value;
-        _size++;
+TVector::~TVector() {
+    if(capacity != 0)
+        delete[] data;
+}
+
+void TVector::InsertLast(const Square& pentagon){
+    if(capacity != 0 && capacity > size){
+        data[size++] = pentagon;
     }
     else{
-        _array = (Square*) realloc(_array, _size * sizeof value + sizeof value);
-        _array[_size] = value;
-        _size++;
-    }
-}
-
-void TVector::pop_back() {
-    Square tmp[_size];
-    for(int i = 0; i < _size - 1; i++){
-        tmp[i] = _array[i];
-    }
-    free(_array);
-    _size--;
-    _array = (Square*) malloc(sizeof tmp);
-    for(int i = 0; i < _size; i++){
-        _array[i] = tmp[i];
-    }
-}
-
-void TVector::clear() {
-    if(_array){
-        free(_array);
-        _array = nullptr;
-    }
-    _size = 0;
-}
-
-int TVector::length() {
-    return _size;
-}
-
-bool TVector::empty() {
-    if(_size == 0) return true;
-    else return false;
-}
-
-void TVector::resize(int count) {
-    if(count == 0){
-        free(_array);
-        _size = 0;
-    }
-    else if (count == _size) return;
-    else if(count > _size){
-        Square init;
-        int _tmp_size = _size;
-        _size = count;
-        _array = (Square*) realloc(_array, (sizeof init) * _size);
-        for (int i = _tmp_size; i < _size; i++){
-            _array[i] = init;
+        if(capacity == 0)
+            capacity = 1;
+        capacity *= 2;
+        TVectorItem* data_new = new TVectorItem[capacity];
+        for(int i = 0; i < size; ++i){
+            data_new[i] = data[i];
         }
-    }
-    else{
-        _size = count;
-        Square tmp[_size];
-        for(int i = 0; i < _size; i++){
-            tmp[i] = _array[i];
-        }
-        _array = (Square*) malloc(sizeof tmp);
-        for(int i = 0; i < _size; i++){
-            _array[i] = tmp[i];
-        }
+        data_new[size++] = pentagon;
+        delete[] data;
+        data = data_new;
     }
 }
 
-void TVector::erase(size_t pos) {
-    if(_size == 0){
-        std::cout << "ERROR, VECTOR IS EMPTY" << std::endl;
-        return;
-    }
-    Square tmp[_size];
-    for(int i = 0; i < _size; i++){
-        tmp[i] = _array[i];
-    }
-    for (int i = pos; i < _size - 1; i++){
-        tmp[pos] = tmp[pos + 1];
-    }
-    _size--;
-    free(_array);
-    _array = (Square*) malloc(sizeof tmp);
-    for(int i = 0; i < _size; i++){
-        _array[i] = tmp[i];
-    }
+void TVector::RemoveLast(){
+    if(size > 0)
+        --size;
 }
 
-Square &TVector::Last() {
-    return _array[_size - 1];
+Square& TVector::Last(){
+    assert(size > 0);
+    return data[size - 1].GetSquare();
 }
-Square &TVector::operator[](int idx) {
-    return _array[idx];
+
+size_t TVector::Length() {
+    return size;
 }
-std::ostream & operator<<(std::ostream &os, TVector &s) {
-    os << "[";
-    for(int i = 0; i < s.length(); ++i){
-        Square tmp = s[i];
-        os << tmp.Area() << " ";
+
+Square& TVector::operator[] (const size_t idx){
+    assert(idx >= 0 && idx < size);
+    return data[idx].GetSquare();
+}
+
+bool TVector::Empty(){
+    return size == 0;
+}
+
+void TVector::Clear() {
+    if(capacity != 0)
+        delete[] data;
+    data = nullptr;
+    capacity = size = 0;
+}
+
+std::ostream& operator<<(std::ostream& os, const TVector& arr){
+    for(int i = 0; i < arr.size; ++i){
+        os << arr.data[i].GetSquare();
     }
-    os << "]";
     return os;
-}
-std::istream& operator>>(std::istream& is, TVector& s) {
-    Square a;
-    is >> a;
-    s.push_back(a);
-    return is;
 }
 
 

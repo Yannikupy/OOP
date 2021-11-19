@@ -8,13 +8,14 @@ int main() {
     Square a1;
     std::cin >> a1;
     TVector v;
-    v.push_back(a);
-    v.push_back(a1);
+    v.InsertLast(a);
+    v.InsertLast(a1);
     std::cout << v.Last() << std::endl;
     std::cout << v << std::endl;
     TVector v2(v);
     std::cout << v2 << std::endl;
     std::cout << v2.Last() << std::endl;
-    v.clear();
+    v.Clear();
+    v2.Clear();
     return 0;
 }
