@@ -10,7 +10,7 @@ public:
     Square();
     virtual ~Square();
     void Print();
-    void Area();
+    double Area();
     size_t VertexesNumber();
     friend std::ostream& operator<<(std::ostream& os, Square& s);
     friend std::istream& operator>>(std::istream& is, Square& p);

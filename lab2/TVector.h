@@ -5,12 +5,15 @@
 class TVector {
 public:
     TVector();
-    ~TVector();
+    TVector(TVector& other);
+    virtual ~TVector();
     void Print();
     void push_back(const Square& value);
     void pop_back();
     void clear();
-    int size();
+    int length();
+    Square& Last();
+    Square& operator[](int idx);
     bool empty();
     void resize(int count);
     void erase(size_t pos);

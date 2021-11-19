@@ -7,6 +7,14 @@ TVector::TVector()
 {
 
 }
+TVector::TVector(TVector &other)
+{
+    _size = other.length();
+    _array = (Square*) malloc(sizeof other);
+    for(int i = 0; i < other.length(); ++i){
+        _array[i] = other[i];
+    }
+}
 TVector::~TVector()
 {
     clear();
@@ -52,7 +60,7 @@ void TVector::clear() {
     _size = 0;
 }
 
-int TVector::size() {
+int TVector::length() {
     return _size;
 }
 
@@ -108,8 +116,20 @@ void TVector::erase(size_t pos) {
         _array[i] = tmp[i];
     }
 }
+
+Square &TVector::Last() {
+    return _array[_size - 1];
+}
+Square &TVector::operator[](int idx) {
+    return _array[idx];
+}
 std::ostream & operator<<(std::ostream &os, TVector &s) {
-    s.Print();
+    os << "[";
+    for(int i = 0; i < s.length(); ++i){
+        Square tmp = s[i];
+        os << tmp.Area() << " ";
+    }
+    os << "]";
     return os;
 }
 std::istream& operator>>(std::istream& is, TVector& s) {
@@ -118,4 +138,6 @@ std::istream& operator>>(std::istream& is, TVector& s) {
     s.push_back(a);
     return is;
 }
+
+
 
