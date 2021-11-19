@@ -1,28 +1,41 @@
-#ifndef LAB2_VECTOR_H
-#define LAB2_VECTOR_H
+#ifndef LAB1_TVECTOR_H
+#define LAB1_TVECTOR_H
+
+#include <iostream>
+#include "TVectorItem.h"
 #include "square.h"
 #include <memory>
 
 template <class T> class TVector {
 public:
+
     TVector();
+
+    TVector(const std::shared_ptr<TVector> p);
+
     ~TVector();
-    void Print();
-    void push_back(std::shared_ptr<T> &&value);
-    void pop_back();
-    void clear();
-    int size();
-    bool empty();
-    void resize(int count);
-    void erase(size_t pos);
 
-    template<class A>friend std::ostream& operator<<(std::ostream& os, TVector<A>& s);
+    void InsertLast(const std::shared_ptr<T>& square);
 
-    template<class A>friend std::istream& operator>>(std::istream& is, TVector<A>& p);
-    int _size;
+    void RemoveLast();
+
+    std::shared_ptr<T>& Last();
+
+    std::shared_ptr<T>& operator[] (const size_t idx);
+
+    bool Empty();
+
+    size_t Length();
+
+    template<class A> friend std::ostream& operator<<(std::ostream& os, const TVector<A>& arr);
+
+    void Clear();
+
+
 private:
-    std::shared_ptr<T[]> _array;
+    size_t capacity;
+    std::shared_ptr<TVectorItem<T>[]> data;
+    size_t size;
 };
 
-
-#endif //LAB2_VECTOR_H
+#endif //LAB1_TVECTOR_H
