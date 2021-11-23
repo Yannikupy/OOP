@@ -63,18 +63,17 @@ bool Complex::equ_by_real(Complex num2) {
     const double e = 1e-5;
     Complex alg_form1 = alg_form(*this);
     Complex alg_form2 = alg_form(num2);
-    return (alg_form1.r - alg_form2.r < e);
+    return (std::abs(alg_form1.r - alg_form2.r) < e);
 }
 
 Complex Complex::alg_form(Complex num) {
-    return Complex(num.r * sin(num.j), num.r * cos(num.j));
+    return Complex(num.r * cos(num.j), num.r * sin(num.j));
 }
 
 Complex Complex::alg_form_to_geom(Complex num) {
     double a = num.r, b = num.j;
     double z = sqrt(a * a + b * b);
-    double argZ = (atan(b / a) * 180) / 3.14;
-    std::cout << "Angle: " << argZ;
+    double argZ = (-3.14 + atan(b / a)) * (180 / 3.14);
     return Complex(z, argZ);
 }
 
