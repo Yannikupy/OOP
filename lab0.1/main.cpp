@@ -33,6 +33,7 @@ Complex Complex::add(Complex num2) {
 }
 
 Complex Complex::sub(Complex num2) {
+    if(this->r == num2.r && this->j == num2.j) return Complex(0, 0);
     Complex alg_form1 = alg_form(*this);
     Complex alg_form2 = alg_form(num2);
     Complex result(alg_form1.r - alg_form2.r, alg_form1.j - alg_form2.j);
