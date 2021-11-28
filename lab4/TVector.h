@@ -52,15 +52,16 @@ private:
     std::shared_ptr<T> *data_;
     size_t length_, capacity_;
 
-    enum { INITIAL_CAPACITY = 32 };
+    enum { Capacity
+            = 32 };
 };
 
 #include <cstdlib>
 
 template <typename T>
 TVector<T>::TVector()
-        : data_(new std::shared_ptr<T>[INITIAL_CAPACITY]),
-          length_(0), capacity_(INITIAL_CAPACITY) {}
+        : data_(new std::shared_ptr<T>[Capacity]),
+          length_(0), capacity_(Capacity) {}
 
 template <typename T>
 TVector<T>::TVector(const TVector &vector)
@@ -87,25 +88,25 @@ void TVector<T>::_Resize(const size_t new_capacity)
     capacity_ = new_capacity;
 }
 
-#define _EXTEND_VECTOR_IF_NEEDED \
+#define _EXTEND_VECTOR \
    if (length_ >= capacity_) \
       _Resize(capacity_ << 1);
 
 template <typename T>
 void TVector<T>::InsertLast(const std::shared_ptr<T> &item)
 {
-    _EXTEND_VECTOR_IF_NEEDED
+    _EXTEND_VECTOR
     data_[length_++] = item;
 }
 
 template <typename T>
 void TVector<T>::EmplaceLast(const T &&item)
 {
-    _EXTEND_VECTOR_IF_NEEDED
+    _EXTEND_VECTOR
     data_[length_++] = std::make_shared<T>(item);
 }
 
-#undef _EXTEND_VECTOR_IF_NEEDED
+#undef _EXTEND_VECTOR
 
 template <typename T>
 void TVector<T>::Remove(const size_t index)
@@ -118,9 +119,9 @@ template <typename T>
 void TVector<T>::Clear()
 {
     delete[] data_;
-    data_ = new std::shared_ptr<T>[INITIAL_CAPACITY];
+    data_ = new std::shared_ptr<T>[Capacity];
     length_ = 0;
-    capacity_ = INITIAL_CAPACITY;
+    capacity_ = Capacity;
 }
 
 template <typename T>
