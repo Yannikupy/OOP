@@ -10,11 +10,9 @@ int main() {
     TVector v;
     v.InsertLast(a);
     v.InsertLast(a1);
-    std::cout << v.Last() << std::endl;
     std::cout << v << std::endl;
     TVector v2(v);
     std::cout << v2 << std::endl;
-    std::cout << v2.Last() << std::endl;
     v.Clear();
     v2.Clear();
     return 0;

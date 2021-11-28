@@ -1,40 +1,28 @@
-#ifndef LAB1_TVECTOR_H
-#define LAB1_TVECTOR_H
+#pragma once
 
-#include <iostream>
-#include "TVectorItem.h"
 #include "square.h"
 
 class TVector {
 public:
-
     TVector();
+    TVector(const TVector &vector);
 
-    TVector(const TVector& other);
+    virtual ~TVector();
 
-    ~TVector();
+    void InsertLast(const Square &square);
+    Square RemoveLast();
 
-    void InsertLast(const Square& square);
-
-    void RemoveLast();
-
-    Square& Last();
-
-    Square& operator[] (const size_t idx);
-
-    bool Empty();
+    const Square &Last();
+    Square &operator[](const size_t index);
 
     size_t Length();
-
-    friend std::ostream& operator<<(std::ostream& os, const TVector& arr);
+    bool Empty();
 
     void Clear();
 
+    friend std::ostream &operator<<(std::ostream &os, const TVector &vector);
 
 private:
-    size_t size;
-    size_t capacity;
-    TVectorItem *data;
+    Square *data_;
+    size_t size_, capacity_;
 };
-
-#endif //LAB1_TVECTOR_H

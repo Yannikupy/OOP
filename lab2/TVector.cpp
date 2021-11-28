@@ -1,78 +1,77 @@
-#include "TVector.h"
-#include <cassert>
+#include "tvector.h"
 
-TVector::TVector():size(0), data(nullptr), capacity(0) {
+#include <cstring>
+
+enum {
+    INITIAL_CAPACITY = 32,
+};
+
+TVector::TVector()
+        : data_(nullptr), size_(0), capacity_(INITIAL_CAPACITY)
+{
+    data_ = (Square *)malloc(capacity_ * sizeof(Square));
 }
 
-TVector::TVector(const TVector& other){
-    size = other.size;
-    capacity = other.capacity;
-    data = new TVectorItem[capacity];
-    for(int i = 0; i < size; ++i)
-        data[i] = other.data[i];
+TVector::TVector(const TVector &vector)
+        : data_(nullptr), size_(vector.size_), capacity_(vector.capacity_)
+{
+    data_ = (Square *)malloc(vector.capacity_ * sizeof(Square));
+    std::memcpy(data_, vector.data_, capacity_ * sizeof(Square));
 }
 
-TVector::~TVector() {
-    if(capacity != 0)
-        delete[] data;
+TVector::~TVector()
+{
+    free(data_);
+    data_ = nullptr;
+    size_ = 0;
+    capacity_ = 0;
 }
 
-void TVector::InsertLast(const Square& square){
-    if(capacity != 0 && capacity > size){
-        data[size++] = square;
+size_t TVector::Length()
+{
+    return size_;
+}
+
+bool TVector::Empty()
+{
+    return !size_;
+}
+
+Square &TVector::operator[](const size_t index)
+{
+    return data_[index];
+}
+
+void TVector::InsertLast(const Square &square)
+{
+    if (size_ >= capacity_) {
+        capacity_ <<= 1;
+        data_ = (Square *)realloc(data_, capacity_ * sizeof(Square));
     }
-    else{
-        if(capacity == 0)
-            capacity = 1;
-        capacity *= 2;
-        TVectorItem* data_new = new TVectorItem[capacity];
-        for(int i = 0; i < size; ++i){
-            data_new[i] = data[i];
-        }
-        data_new[size++] = square;
-        delete[] data;
-        data = data_new;
-    }
+
+    data_[size_++] = square;
 }
 
-void TVector::RemoveLast(){
-    if(size > 0)
-        --size;
+Square TVector::RemoveLast()
+{
+    return data_[--size_];
 }
 
-Square& TVector::Last(){
-    assert(size > 0);
-    return data[size - 1].GetSquare();
+const Square &TVector::Last()
+{
+    return data_[size_ - 1];
 }
 
-size_t TVector::Length() {
-    return size;
+void TVector::Clear()
+{
+    size_ = 0;
+    capacity_ = INITIAL_CAPACITY;
+    data_ = (Square *)realloc(data_, capacity_ * sizeof(Square));
 }
 
-Square& TVector::operator[] (const size_t idx){
-    assert(idx >= 0 && idx < size);
-    return data[idx].GetSquare();
-}
-
-bool TVector::Empty(){
-    return size == 0;
-}
-
-void TVector::Clear() {
-    if(capacity != 0)
-        delete[] data;
-    data = nullptr;
-    capacity = size = 0;
-}
-
-std::ostream& operator<<(std::ostream& os, const TVector& arr){
-    os << "[";
-    for(int i = 0; i < arr.size; ++i){
-        os << arr.data[i].GetSquare().Area() << " ";
-    }
-    os << "]";
+std::ostream &operator<<(std::ostream &os, const TVector &vector)
+{
+    for (size_t i = 0; i < vector.size_; ++i)
+        os << vector.data_[i];
     return os;
 }
-
-
-
