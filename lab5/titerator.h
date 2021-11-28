@@ -7,8 +7,8 @@
 template <typename T>
 class TIterator {
 public:
-    inline TIterator(std::shared_ptr<T> *iter)
-            : iter_(iter) {}
+    inline TIterator(std::shared_ptr<T> *iterator)
+            : iter_(iterator) {}
 
     inline T operator*() const
     {
