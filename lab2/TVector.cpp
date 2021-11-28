@@ -3,11 +3,11 @@
 #include <cstring>
 
 enum {
-    INITIAL_CAPACITY = 32,
+    CAPACITY = 32,
 };
 
 TVector::TVector()
-        : data_(nullptr), size_(0), capacity_(INITIAL_CAPACITY)
+        : data_(nullptr), size_(0), capacity_(CAPACITY)
 {
     data_ = (Square *)malloc(capacity_ * sizeof(Square));
 }
@@ -65,7 +65,7 @@ const Square &TVector::Last()
 void TVector::Clear()
 {
     size_ = 0;
-    capacity_ = INITIAL_CAPACITY;
+    capacity_ = CAPACITY;
     data_ = (Square *)realloc(data_, capacity_ * sizeof(Square));
 }
 
