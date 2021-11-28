@@ -1,71 +1,72 @@
-#include "TVector.h"
-#include <cassert>
-#include <memory>
+#include "tvector.h"
 
-TVector::TVector():size(0), data(nullptr), capacity(0) {
+#include <cstdlib>
+
+TVector::TVector()
+        : data_(new std::shared_ptr<Square>[INITIAL_CAPACITY]),
+          length_(0), capacity_(INITIAL_CAPACITY) {}
+
+TVector::TVector(const TVector &vector)
+        : data_(new std::shared_ptr<Square>[vector.capacity_]),
+          length_(vector.length_), capacity_(vector.capacity_)
+{
+    std::copy(vector.data_, vector.data_ + vector.length_, data_);
 }
 
-TVector::TVector(const std::shared_ptr<TVector> p){
-    TVector const& other = *p;
+TVector::~TVector()
+{
+    delete[] data_;
 }
 
-TVector::~TVector() {
-
+void TVector::_Resize(const size_t new_capacity)
+{
+    std::shared_ptr<Square> *newdata =
+            new std::shared_ptr<Square>[new_capacity];
+    std::copy(data_, data_ + capacity_, newdata);
+    delete[] data_;
+    data_ = newdata;
+    capacity_ = new_capacity;
 }
 
-void TVector::InsertLast(const std::shared_ptr<Square>& square){
-    if(capacity != 0 && capacity > size){
-        data[size++] = square;
-    }
-    else{
-        if(capacity == 0)
-            capacity = 1;
-        capacity *= 2;
-        TVectorItem* data_new = new TVectorItem[capacity];
-        for(int i = 0; i < size; ++i){
-            data_new[i] = data[i];
-        }
-        data_new[size++] = square;
-        data.reset(data_new);
-    }
+#define _EXTEND_VECTOR_IF_NEEDED \
+   if (length_ >= capacity_) \
+      _Resize(capacity_ << 1);
+
+void TVector::InsertLast(const std::shared_ptr<Square> &item)
+{
+    _EXTEND_VECTOR_IF_NEEDED
+    data_[length_++] = item;
 }
 
-void TVector::RemoveLast(){
-    if(size > 0)
-        --size;
+void TVector::EmplaceLast(const Square &&item)
+{
+    _EXTEND_VECTOR_IF_NEEDED
+    data_[length_++] = std::make_shared<Square>(item);
 }
 
-std::shared_ptr<Square>& TVector::Last(){
-    assert(size > 0);
-    return data[size - 1].GetSquare();
+#undef _EXTEND_VECTOR_IF_NEEDED
+
+void TVector::Remove(const size_t index)
+{
+    std::copy(data_ + index + 1, data_ + length_, data_ + index);
+    --length_;
 }
 
-size_t TVector::Length() {
-    return size;
+void TVector::Clear()
+{
+    delete[] data_;
+    data_ = new std::shared_ptr<Square>[INITIAL_CAPACITY];
+    length_ = 0;
+    capacity_ = INITIAL_CAPACITY;
 }
 
-std::shared_ptr<Square>& TVector::operator[] (const size_t idx){
-    assert(idx >= 0 && idx < size);
-    return data[idx].GetSquare();
-}
+std::ostream &operator<<(std::ostream &os, const TVector &vector)
+{
+    const size_t last = vector.length_ - 1;
 
-bool TVector::Empty(){
-    return size == 0;
-}
+    for (size_t i = 0; i < vector.length_; ++i)
+        os << *vector.data_[i] << ((i != last) ? '\n' : '\0');
 
-void TVector::Clear() {
-    data = nullptr;
-    capacity = size = 0;
-}
-
-std::ostream& operator<<(std::ostream& os, const TVector& arr){
-    os << "[";
-    for(int i = 0; i < arr.size; ++i){
-        os << arr.data[i].GetSquare()->Area() << " ";
-    }
-    os << "]";
     return os;
 }
-
-
 

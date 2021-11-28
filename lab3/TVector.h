@@ -1,41 +1,56 @@
-#ifndef LAB1_TVECTOR_H
-#define LAB1_TVECTOR_H
+#pragma once
 
-#include <iostream>
-#include "TVectorItem.h"
 #include "square.h"
+
+#include <ostream>
 #include <memory>
 
 class TVector {
 public:
-
     TVector();
+    TVector(const TVector &);
 
-    TVector(const std::shared_ptr<TVector> p);
+    virtual ~TVector();
 
-    ~TVector();
+    inline size_t Length() const
+    {
+        return length_;
+    }
 
-    void InsertLast(const std::shared_ptr<Square>& square);
+    inline bool Empty() const
+    {
+        return !length_;
+    }
 
-    void RemoveLast();
+    inline const std::shared_ptr<Square> &operator[](const size_t index) const
+    {
+        return data_[index];
+    }
 
-    std::shared_ptr<Square>& Last();
+    inline std::shared_ptr<Square> Last() const
+    {
+        return data_[length_ - 1];
+    }
 
-    std::shared_ptr<Square>& operator[] (const size_t idx);
+    void InsertLast(const std::shared_ptr<Square> &);
+    void EmplaceLast(const Square &&);
 
-    bool Empty();
+    void Remove(const size_t index);
 
-    size_t Length();
-
-    friend std::ostream& operator<<(std::ostream& os, const TVector& arr);
+    inline Square RemoveLast()
+    {
+        return *data_[--length_];
+    }
 
     void Clear();
 
+    friend std::ostream &operator<<(std::ostream &, const TVector &);
 
 private:
-    size_t size;
-    size_t capacity;
-    std::shared_ptr<TVectorItem[]> data;
-};
+    void _Resize(const size_t new_capacity);
 
-#endif //LAB1_TVECTOR_H
+    std::shared_ptr<Square> *data_;
+    size_t length_, capacity_;
+
+    enum { INITIAL_CAPACITY = 32 };
+};

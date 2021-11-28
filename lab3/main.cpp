@@ -11,7 +11,6 @@ int main() {
     v.InsertLast(std::shared_ptr<Square>(new Square(a)));
     v.InsertLast(std::shared_ptr<Square>(new Square(b)));
     v.RemoveLast();
-    std::cout << v.Last() << std::endl;
     std::cout << *v.Last() << std::endl;
     std::cout << "Before pop_back\n" << v << std::endl;
     v.RemoveLast();
