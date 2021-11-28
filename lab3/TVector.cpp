@@ -1,10 +1,10 @@
-#include "tvector.h"
+#include "TVector.h"
 
 #include <cstdlib>
 
 TVector::TVector()
-        : data_(new std::shared_ptr<Square>[INITIAL_CAPACITY]),
-          length_(0), capacity_(INITIAL_CAPACITY) {}
+        : data_(new std::shared_ptr<Square>[CAPACITY]),
+          length_(0), capacity_(CAPACITY) {}
 
 TVector::TVector(const TVector &vector)
         : data_(new std::shared_ptr<Square>[vector.capacity_]),
@@ -55,9 +55,9 @@ void TVector::Remove(const size_t index)
 void TVector::Clear()
 {
     delete[] data_;
-    data_ = new std::shared_ptr<Square>[INITIAL_CAPACITY];
+    data_ = new std::shared_ptr<Square>[CAPACITY];
     length_ = 0;
-    capacity_ = INITIAL_CAPACITY;
+    capacity_ = CAPACITY;
 }
 
 std::ostream &operator<<(std::ostream &os, const TVector &vector)

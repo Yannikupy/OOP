@@ -52,5 +52,5 @@ private:
     std::shared_ptr<Square> *data_;
     size_t length_, capacity_;
 
-    enum { INITIAL_CAPACITY = 32 };
+    enum { CAPACITY = 32 };
 };
