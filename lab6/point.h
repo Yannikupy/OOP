@@ -1,23 +1,26 @@
-#ifndef POINT_H
-#define POINT_H
+
+
+#ifndef LAB_POINT_H
+#define LAB_POINT_H
 
 #include <iostream>
 
 class Point {
 public:
-  Point();
-  Point(std::istream &is);
-  Point(double x, double y);
-  friend bool operator == (Point& p1, Point& p2);
-  friend class Pentagon;
-  double X();
-  double Y();
-  friend std::istream& operator>>(std::istream& is, Point& p);
-  friend std::ostream& operator<<(std::ostream& os, Point& p);
+    Point();
+    Point(std::istream &is);
+    Point(double x, double y);
 
+    double dist(Point& other);
+
+    friend std::istream& operator>>(std::istream& is, Point& p);
+    friend std::ostream& operator<<(std::ostream& os, Point& p);
+    friend bool operator==(Point lhs, Point rhs);
 private:
-  double x;
-  double y;
+    double x_;
+    double y_;
 };
 
-#endif 
+
+
+#endif //LAB_POINT_H
