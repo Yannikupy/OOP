@@ -5,7 +5,7 @@ template <class T> TLinkedList<T>::TLinkedList() {
   size_of_list = 0;
   std::shared_ptr<HListItem<T>> front;
   std::shared_ptr<HListItem<T>> back;
-  std::cout << "Pentagon List created" << std::endl; 
+  std::cout << "Square List created" << std::endl;
 }
 template <class T> TLinkedList<T>::TLinkedList(const std::shared_ptr<TLinkedList> &other){
   front = other->front;
@@ -17,23 +17,23 @@ template <class T> size_t TLinkedList<T>::Length() {
 template <class T> bool TLinkedList<T>::Empty() {
   return size_of_list;
 }
-template <class T> std::shared_ptr<Pentagon>& TLinkedList<T>::GetItem(size_t idx){
+template <class T> std::shared_ptr<Square>& TLinkedList<T>::GetItem(size_t idx){
   int k = 0;
   std::shared_ptr<HListItem<T>> obj = front;
   while (k != idx){
     k++;
     obj = obj->next;
   }
-  return obj->pentagon;
+  return obj->square;
 }
-template <class T> std::shared_ptr<Pentagon>& TLinkedList<T>::First() {
-  return front->pentagon;
+template <class T> std::shared_ptr<Square>& TLinkedList<T>::First() {
+  return front->square;
 }
-template <class T> std::shared_ptr<Pentagon>& TLinkedList<T>::Last() {
-  return back->pentagon;
+template <class T> std::shared_ptr<Square>& TLinkedList<T>::Last() {
+  return back->square;
 }
-template <class T> void TLinkedList<T>::InsertLast(const std::shared_ptr<Pentagon> &&pentagon) {
-  std::shared_ptr<HListItem<T>> obj (new HListItem<T>(pentagon));
+template <class T> void TLinkedList<T>::InsertLast(const std::shared_ptr<Square> &&square) {
+  std::shared_ptr<HListItem<T>> obj (new HListItem<T>(square));
   if(size_of_list == 0) {
     front = obj;
     back = obj;
@@ -47,7 +47,7 @@ template <class T> void TLinkedList<T>::InsertLast(const std::shared_ptr<Pentago
 }
 template <class T> void TLinkedList<T>::RemoveLast() {
   if (size_of_list == 0) {
-    std::cout << "Pentagon does not pop_back, because the Pentagon List is empty" << std:: endl;
+    std::cout << "Square does not pop_back, because the Square List is empty" << std:: endl;
   } else {
     if (front == back) {
       RemoveFirst();
@@ -63,8 +63,8 @@ template <class T> void TLinkedList<T>::RemoveLast() {
     size_of_list--;
     } 
 }
-template <class T> void TLinkedList<T>::InsertFirst(const std::shared_ptr<Pentagon> &&pentagon) {
-    std::shared_ptr<HListItem<T>> obj (new HListItem<T>(pentagon));
+template <class T> void TLinkedList<T>::InsertFirst(const std::shared_ptr<Square> &&square) {
+    std::shared_ptr<HListItem<T>> obj (new HListItem<T>(square));
     if(size_of_list == 0) {
       front = obj;
       back = obj;
@@ -76,20 +76,20 @@ template <class T> void TLinkedList<T>::InsertFirst(const std::shared_ptr<Pentag
 }
 template <class T> void TLinkedList<T>::RemoveFirst() {
     if (size_of_list == 0) {
-      std::cout << "Pentagon does not pop_front, because the Pentagon List is empty" << std:: endl;
+      std::cout << "Square does not pop_front, because the Square List is empty" << std:: endl;
     } else {
     std::shared_ptr<HListItem<T>> del = front;
     front = del->next;
     size_of_list--;
     }
 }
-template <class T> void TLinkedList<T>::Insert(const std::shared_ptr<Pentagon> &&pentagon, size_t position) {
+template <class T> void TLinkedList<T>::Insert(const std::shared_ptr<Square> &&square, size_t position) {
   if (position <0) {
     std::cout << "Position < zero" << std::endl;
   } else if (position > size_of_list) {
     std::cout << " Position > size_of_list" << std::endl;
   } else {
-    std::shared_ptr<HListItem<T>> obj (new HListItem<T>(pentagon));
+    std::shared_ptr<HListItem<T>> obj (new HListItem<T>(square));
     if (position == 0) {
       front = obj;
       back = obj;
@@ -150,16 +150,16 @@ template <class T> void TLinkedList<T>::Clear() {
 }
 template <class T> std::ostream& operator<<(std::ostream& os, TLinkedList<T>& hl) {
   if (hl.size_of_list == 0) {
-    os << "The pentagon list is empty, so there is nothing to output" << std::endl;
+    os << "The square list is empty, so there is nothing to output" << std::endl;
   } else {
-    os << "Print Pentagon List" << std::endl;
+    os << "Print Square List" << std::endl;
     std::shared_ptr<HListItem<T>> obj = hl.front;
     while(obj != nullptr) {
       if (obj->next != nullptr) {
-        os << obj->pentagon << " " << "," << " ";
+        os << obj->square << " " << "," << " ";
         obj = obj->next;
       } else {
-        os << obj->pentagon;
+        os << obj->square;
         obj = obj->next;
       }
     }
@@ -176,6 +176,6 @@ template <class T> TLinkedList<T>::~TLinkedList() {
       del = del->next;
     }
     size_of_list = 0;
-    std::cout << "Pentagon List deleted" << std::endl;
+    std::cout << "Square List deleted" << std::endl;
   } 
 }
