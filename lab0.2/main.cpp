@@ -16,6 +16,8 @@ public:
     Complex alg_form_to_geom(Complex num);
     friend std::istream& operator>> (std::istream &in, Complex &num);
     friend std::ostream& operator<< (std::ostream &out, const Complex &num);
+    bool operator==(const Complex& rh);
+
 private:
     double r,j;
 };
@@ -93,6 +95,10 @@ std::ostream &operator<<(std::ostream &out, const Complex &num) {
     return out;
 }
 
+bool Complex::operator==(const Complex &rh) {
+    return this->equ_by_real(rh);
+}
+
 Complex operator "" _complex(const char* str, size_t size) {
     int cnt = 0;
     std::string s = "";
@@ -128,6 +134,10 @@ int main() {
     std::cout << "Умножение\n" << test_num1.mul(test_num2) << std::endl;
     std::cout << "Деление\n" << test_num1.div(test_num2) << std::endl;
     std::cout << "Проверка на равенство\n" << test_num1.equ(test_num2) << std::endl;
+    if(test_num1 == test_num2){
+        std::cout << "Числа равны по действительной части" << std::endl;
+    }
+    else std::cout << "Числа не равны по действительной части";
     std::cout << "Сопряженное число\n" << test_num1.conj() << std::endl;
     std::cout << "Проверка на равенство по действительной части\n" << test_num1.equ_by_real(test_num2) << std::endl;
     return 0;
