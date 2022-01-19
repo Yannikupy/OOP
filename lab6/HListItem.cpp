@@ -1,7 +1,8 @@
 #include <iostream>
 #include "HListItem.h"
 
-template <class T> HListItem<T>::HListItem(const std::shared_ptr<Square> &square) {
+
+template <class T> HListItem<T>::HListItem(const std::shared_ptr<Pentagon> &square) {
   this->square = square;
   this->next = nullptr;
 }
