@@ -1,20 +1,22 @@
 #include <iostream>
 #include "square.h"
 #include "TVector.h"
+int main () {
+    Square a (std::cin);
+    std:: cout << "The area of your figure is : " << a.Area() << std:: endl;
 
-int main() {
-    Square a, b, c;
-    std::cin >> a >> b >> c;
-    TVector<Square> v;
-    v.InsertLast(std::shared_ptr<Square>(new Square(a)));
-    v.InsertLast(std::shared_ptr<Square>(new Square(b)));
-    v.InsertLast(std::shared_ptr<Square>(new Square(c)));
+    Square b (std::cin);
+    std:: cout << "The area of your figure is : " << b.Area() << std:: endl;
 
-    for (auto && i : v)
-        std::cout << i << std::endl;
-
-    std::cout << "Before pop_back\n" << v << std::endl;
-    v.RemoveLast();
-    std::cout << "After pop_back\n" << v << std::endl;
+    Square c (std::cin);
+    std:: cout << "The area of your figure is : " << c.Area() << std:: endl;
+    
+    TVector<Square> vector;
+    std:: cout << "Is tree empty? " << vector.Empty() << std:: endl;
+    std:: cout << "And now, is tree empty? " << vector.Empty() << std:: endl;
+    vector.InsertLast(std::make_shared<Square>(a));
+    vector.InsertLast(std::make_shared<Square>(b));
+    vector.InsertLast(std::make_shared<Square>(c));
+    std::cout << vector << std::endl;
     return 0;
 }

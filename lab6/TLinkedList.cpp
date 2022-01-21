@@ -1,13 +1,7 @@
 #include <iostream>
 #include "TLinkedList.h"
-#include "HListItem.h"
- 
-template <class T> TLinkedList<T>::TLinkedList() {
-  size_of_list = 0;
-  std::shared_ptr<HListItem<T>> front;
-  std::shared_ptr<HListItem<T>> back;
-  std::cout << "Square List created" << std::endl;
-}
+
+template <class T> TLinkedList<T>::TLinkedList() : size_of_list(0), front(nullptr), back(nullptr) {}
 template <class T> TLinkedList<T>::TLinkedList(const std::shared_ptr<TLinkedList> &other){
   front = other->front;
   back = other->back;
@@ -62,7 +56,7 @@ template <class T> void TLinkedList<T>::RemoveLast() {
     prev_del->next = nullptr;
     back = prev_del;
     size_of_list--;
-    } 
+    }
 }
 template <class T> void TLinkedList<T>::InsertFirst(const std::shared_ptr<Square> &&square) {
     std::shared_ptr<HListItem<T>> obj (new HListItem<T>(square));
@@ -143,8 +137,7 @@ template <class T> void TLinkedList<T>::Clear() {
       del = del->next;
     }
     size_of_list = 0;
-    //   std::cout << "HListItem deleted" << std::endl;
-  } 
+  }
   size_of_list = 0;
   std::shared_ptr<HListItem<T>> front;
   std::shared_ptr<HListItem<T>> back;
@@ -167,16 +160,4 @@ template <class T> std::ostream& operator<<(std::ostream& os, TLinkedList<T>& hl
     os << std::endl;
   }
   return os;
-}
-template <class T> TLinkedList<T>::~TLinkedList() {
-  std::shared_ptr<HListItem<T>> del = front;
-  std::shared_ptr<HListItem<T>> prev_del;
-  if(size_of_list !=0 ) {
-    while(del->next != nullptr) {
-      prev_del = del;
-      del = del->next;
-    }
-    size_of_list = 0;
-    std::cout << "Square List deleted" << std::endl;
-  } 
 }

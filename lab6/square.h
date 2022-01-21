@@ -8,8 +8,9 @@
 class Square : public Figure  {
 public:
     Square();
+    Square(std::istream &is);
     virtual ~Square();
-    void Print();
+    void Print(std::ostream &os);
     double Area();
     size_t VertexesNumber();
     friend std::ostream& operator<<(std::ostream& os, Square& s);

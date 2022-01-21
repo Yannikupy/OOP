@@ -12,8 +12,8 @@ Square::~Square() {
    // std::cout << "Square deleted" << std::endl;
 }
 
-void Square::Print() {
-    std::cout << "Square: " << a << " " << b << " "  << c << " " << d << std::endl;
+void Square::Print(std::ostream &os) {
+    os << "Square: " << a << " " << b << " "  << c << " " << d << std::endl;
 }
 double Square::Area() {
     double len_a = a.dist(b);
@@ -28,8 +28,13 @@ std::ostream &operator<<(std::ostream &os, Square &s) {
     os << "Square: " << s.a << " " << s.b << " " << s.c << " " << s.d;
     return os;
 }
+
 bool operator==(Square lhs, Square rhs) {
     if(lhs.a == rhs.a && lhs.b == rhs.b && lhs.c == rhs.c && lhs.d == rhs.d) return true;
     else return false;
+}
+
+Square::Square(std::istream &is) {
+    is >> this->a >> this->b >> this->c >> this->d;
 }
 
