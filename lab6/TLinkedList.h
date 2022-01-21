@@ -23,6 +23,7 @@ public:
   void Remove(size_t position);
   void Clear();
   template <class A> friend std::ostream& operator<<(std::ostream& os, TLinkedList<A>& list);
+  ~TLinkedList();
 private:
   std::shared_ptr<HListItem<T>> front;
   std::shared_ptr<HListItem<T>> back;

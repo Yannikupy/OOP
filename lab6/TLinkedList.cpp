@@ -1,7 +1,7 @@
 #include <iostream>
 #include "TLinkedList.h"
 
-template <class T> TLinkedList<T>::TLinkedList() : size_of_list(0), front(nullptr), back(nullptr) {}
+template <class T> TLinkedList<T>::TLinkedList() : size_of_list(0), front(nullptr), back(nullptr){}
 template <class T> TLinkedList<T>::TLinkedList(const std::shared_ptr<TLinkedList> &other){
   front = other->front;
   back = other->back;
@@ -160,4 +160,16 @@ template <class T> std::ostream& operator<<(std::ostream& os, TLinkedList<T>& hl
     os << std::endl;
   }
   return os;
+}
+template <class T> TLinkedList<T>::~TLinkedList() {
+  std::shared_ptr<HListItem<T>> del = front;
+  std::shared_ptr<HListItem<T>> prev_del;
+  if(size_of_list !=0 ) {
+    while(del->next != nullptr) {
+      prev_del = del;
+      del = del->next;
+    }
+    size_of_list = 0;
+    std::cout << "Square List deleted" << std::endl;
+  }
 }
